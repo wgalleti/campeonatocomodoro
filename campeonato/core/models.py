@@ -108,4 +108,4 @@ class Inscricao(models.Model):
     valor_absoluto = models.DecimalField(max_digits=15, decimal_places=2, default=0, null=True, blank=True)
 
     def __str__(self):
-        self.atleta.nome
+        return self.atleta.nome
