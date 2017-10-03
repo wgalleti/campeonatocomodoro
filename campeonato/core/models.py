@@ -101,11 +101,13 @@ class Inscricao(models.Model):
 
     data = models.DateField()
     atleta = models.ForeignKey('core.Atleta')
-    categoria_peso = models.IntegerField(choices=CATEGORIA_PESO, default=1)
-    categoria_idade = models.IntegerField(choices=CATEGORIA_IDADE, default=5)
+    categoria_peso = models.IntegerField('Peso', choices=CATEGORIA_PESO, default=1)
+    categoria_idade = models.IntegerField('Idade', choices=CATEGORIA_IDADE, default=5)
     absoluto = models.BooleanField(default=False)
-    valor = models.DecimalField(max_digits=15, decimal_places=2, default=0, null=True, blank=True)
-    valor_absoluto = models.DecimalField(max_digits=15, decimal_places=2, default=0, null=True, blank=True)
+    valor = models.DecimalField('valor da inscrição', max_digits=15, decimal_places=2, default=0, null=True, blank=True)
+    valor_absoluto = models.DecimalField('valor absoluto', max_digits=15, decimal_places=2, default=0, null=True, blank=True)
+    pago_inscricao = models.BooleanField('inscrição paga', default=False)
+    pago_absoluto = models.BooleanField('absoluto pago', default=False)
 
     def __str__(self):
         return self.atleta.nome
