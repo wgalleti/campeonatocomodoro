@@ -1,0 +1,1 @@
+web: gunicorn campeonato.wsgi --log-file -
