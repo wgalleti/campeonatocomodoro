@@ -95,6 +95,7 @@ class Inscricao(models.Model):
         (2, 'Mirin'),
         (3, 'Infantil'),
         (4, 'Infanto Juvenil'),
+        (7, 'Juvenil'),
         (5, 'Adulto'),
         (6, 'Master'),
     )
