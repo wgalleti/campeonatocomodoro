@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <div class="row-fluid">
+        <div class="col-md-12">
+                <table class="table table-sm table-striped">
+                    <thead>
+                        <tr>
+                            <th>Faixa</th>
+                            <th>Categoria</th>
+                            <th>Peso</th>
+                            <th>Atletas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for combinacao in combinacoes %}
+                        <tr>
+                            <td>{{ combinacao.get_faixa_display }}</td>
+                            <td>{{ combinacao.get_idade_display}}</td>
+                            <td>{{ combinacao.get_peso_display }}</td>
+                                <td>
+                                    <ul>
+                                    {% for inscricao in combinacao.inscricao.all %}
+                                        <li> {{ inscricao.atleta.nome.title }} <small>{{ inscricao.atleta.academia.nome }}</small></li>
+                                    {% endfor %}
+                                    </ul>
+                                </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+        </div>
+
+    </div>
+
+
+
+
+{% endblock %}
