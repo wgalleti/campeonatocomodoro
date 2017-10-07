@@ -37,7 +37,7 @@ class InscricaoAdmin(admin.ModelAdmin):
         'valor',
         'valor_absoluto'
     )
-    list_filter = ('data', 'atleta__sexo', 'atleta__faixa', 'atleta__academia__nome', 'atleta__academia__equipe__nome')
+    list_filter = ('data', 'atleta__sexo', 'atleta__faixa', 'atleta__academia__nome', 'atleta__academia__equipe__nome', 'absoluto')
     search_fields = ('nome', )
 
 @admin.register(Combinacao)
@@ -56,19 +56,18 @@ class CombinacaoAdmin(admin.ModelAdmin):
     def quantidade(self, obj):
         return len(obj.inscricao.all())
 
-@admin.register(Confronto)
-class ConfrontoAdmin(admin.ModelAdmin):
 
-    list_filter = ('confronto',)
+@admin.register(CombinacaoAbsoluto)
+class CombinacaoAbsoluto(admin.ModelAdmin):
+
+    list_filter = ('faixa', 'idade')
     list_display = (
-        'confronto',
+        'chave',
+        'sexo',
         'faixa',
-        'categoria_peso',
-        'categoria_idade',
-        'inscricao',
-        'academia'
+        'idade',
+        'quantidade',
     )
 
-    def academia(self, obj):
-        return obj.inscricao.atleta.academia.nome
-
+    def quantidade(self, obj):
+        return len(obj.inscricao.all())

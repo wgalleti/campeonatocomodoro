@@ -141,19 +141,21 @@ class Combinacao(models.Model):
         return str(self.chave)
 
 
-class Confronto(models.Model):
+
+class CombinacaoAbsoluto(models.Model):
     """
-        Modelo de Confrontos
+        Modelo de Possiveis combinações absoluto
     """
-    confronto = models.IntegerField()
+
+    chave = models.CharField(max_length=50)
     sexo = models.CharField(max_length=1, choices=Atleta.OPCAO)
     faixa = models.IntegerField(choices=Atleta.FAIXA)
-    categoria_peso = models.IntegerField('Peso', choices=Inscricao.CATEGORIA_PESO, default=1)
-    categoria_idade = models.IntegerField('Idade', choices=Inscricao.CATEGORIA_IDADE, default=5)
-    inscricao = models.ForeignKey('core.Inscricao', verbose_name='inscrição')
+    idade = models.IntegerField(choices=Inscricao.CATEGORIA_IDADE)
+    inscricao = models.ManyToManyField('core.Inscricao')
 
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    class Meta:
+        verbose_name = 'combinação absoluto'
+        verbose_name_plural = 'combinações absoluto'
 
     def __str__(self):
-        return '{faixa}/{peso}/{idade}'.format(self.faixa, self.categoria_peso, self.categoria_idade)
+        return str(self.chave)

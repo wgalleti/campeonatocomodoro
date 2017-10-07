@@ -2,6 +2,7 @@
 
 {% block content %}
     <div class="row-fluid">
+        <h3>Categorias</h3>
 
         <div class="col-md-12">
 
@@ -15,7 +16,7 @@
             {% endif %}
 
             <div class="row">
-                <a class="btn btn-danger" href="{% url 'sorteio' %}">Reorganizar</a>
+                <a class="btn btn-danger" href="{% url 'combinacao' %}">Reorganizar</a>
             </div>
             <br>
 
@@ -51,6 +52,55 @@
             </div>
         </div>
 
+    </div>
+
+    <div class="row-fluid">
+        <h3>Absoluto</h3>
+    <div class="col-md-12">
+
+            {% if messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <strong>Beleza!</strong>As inscrições foram reprocessadas!
+                </div>
+            {% endif %}
+
+            <div class="row">
+                <a class="btn btn-danger" href="{% url 'absoluto' %}">Reorganizar</a>
+            </div>
+            <br>
+
+            <div class="row">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Sexo</th>
+                            <th>Faixa</th>
+                            <th>Categoria</th>
+                            <th>Atletas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for abs in absoluto %}
+                        <tr>
+                            <td>{{ abs.get_sexo_display }}</td>
+                            <td>{{ abs.get_faixa_display }}</td>
+                            <td>{{ abs.get_idade_display}}</td>
+                                <td>
+                                    <ul>
+                                    {% for insc in abs.inscricao.all %}
+                                        <li> {{ insc.atleta.nome.title }} <small>{{ insc.atleta.academia.nome }}</small></li>
+                                    {% endfor %}
+                                    </ul>
+                                </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
 

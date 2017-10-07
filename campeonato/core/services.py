@@ -8,8 +8,36 @@ class SorteioService():
         pass
 
 
+    def combinacao_absoluto(self):
+        """
+        Gera as combinações para categoria absoluto
+        """
 
-    def sorteio(self):
+        CombinacaoAbsoluto.objects.all().delete()
+
+        comb = dict()
+
+        for insc in Inscricao.objects.filter(absoluto=True):
+
+            try:
+                comb[(
+                    insc.atleta.sexo,
+                    insc.atleta.faixa_convertida,
+                    insc.categoria_idade,
+                )].append(insc)
+            except KeyError:
+                comb[(
+                    insc.atleta.sexo,
+                    insc.atleta.faixa_convertida,
+                    insc.categoria_idade,
+                )] = [insc]
+
+        for row in comb:
+            c = CombinacaoAbsoluto(chave=row, sexo=row[0], faixa=row[1], idade=row[2])
+            c.save()
+            c.inscricao.add(*comb[row])
+
+    def combinacao(self):
         """
             Resgatas todas inscrições
             Gera as combinacoes de peso, idade e faixa
