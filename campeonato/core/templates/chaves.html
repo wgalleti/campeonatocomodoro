@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block content %}
-
     <div class="row-fluid">
+
         <div class="col-md-12">
-                <table class="table table-sm table-striped">
+                <table class="table table-striped">
                     <thead>
                         <tr>
+                            <th>Sexo</th>
                             <th>Faixa</th>
                             <th>Categoria</th>
                             <th>Peso</th>
@@ -16,6 +17,7 @@
                     <tbody>
                         {% for combinacao in combinacoes %}
                         <tr>
+                            <td>{{ combinacao.get_sexo_display }}</td>
                             <td>{{ combinacao.get_faixa_display }}</td>
                             <td>{{ combinacao.get_idade_display}}</td>
                             <td>{{ combinacao.get_peso_display }}</td>

@@ -11,7 +11,7 @@ def index(request):
     return render(request, 'home.html')
 
 def inscricao(request):
-    c = Combinacao.objects.all().order_by('idade', 'faixa', 'peso')
+    c = Combinacao.objects.all().order_by('sexo', 'faixa', 'idade', 'peso')
     return render(request, 'chaves.html', {'combinacoes': c})
 
 def sorteio(request):

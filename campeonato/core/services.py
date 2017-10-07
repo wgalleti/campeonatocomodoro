@@ -24,14 +24,14 @@ class SorteioService():
             try:
                 combinacoes[(
                     inscricao.atleta.sexo,
-                    inscricao.atleta.faixa,
+                    inscricao.atleta.faixa_convertida,
                     inscricao.categoria_idade,
                     inscricao.categoria_peso
                 )].append(inscricao)
             except KeyError:
                 combinacoes[(
                     inscricao.atleta.sexo,
-                    inscricao.atleta.faixa,
+                    inscricao.atleta.faixa_convertida,
                     inscricao.categoria_idade,
                     inscricao.categoria_peso
                 )] = [inscricao]

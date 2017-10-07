@@ -69,6 +69,10 @@ class Atleta(models.Model):
     faixa = models.IntegerField(choices=FAIXA, default=1)
     academia = models.ForeignKey('core.Academia')
 
+    @property
+    def faixa_convertida(self):
+        return self.faixa if self.faixa >13 else 1
+
     def __str__(self):
         return self.nome
 
