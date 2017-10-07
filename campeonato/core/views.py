@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from django.contrib import messages
 
 from .services import SorteioService
 from .models import Combinacao
@@ -19,5 +19,7 @@ def sorteio(request):
     sorteio = SorteioService()
     sorteio.sorteio()
 
-    return HttpResponse('Ok')
+    messages.success(request, 'Inscrições processadas com sucesso!')
+
+    return redirect('inscricao')
 

@@ -71,7 +71,11 @@ class Atleta(models.Model):
 
     @property
     def faixa_convertida(self):
-        return self.faixa if self.faixa >13 else 1
+        # Valida Juvenio
+        faixa = self.faixa if self.faixa >13 else 1
+        # Valida Marrom e preta
+        faixa = faixa if faixa not in [16, 17] else 17
+        return faixa
 
     def __str__(self):
         return self.nome
