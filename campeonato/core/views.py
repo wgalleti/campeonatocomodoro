@@ -12,7 +12,6 @@ from .models import Combinacao, CombinacaoAbsoluto
 def index(request):
     return render(request, 'home.html')
 
-@login_required(login_url='/admin')
 def inscricao(request):
     c = Combinacao.objects.all().order_by('sexo', 'faixa', 'idade', 'peso')
     a = CombinacaoAbsoluto.objects.all().order_by('sexo', 'faixa', 'idade')

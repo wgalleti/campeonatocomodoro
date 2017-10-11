@@ -1,5 +1,26 @@
 from .models import *
 
+class AutoPreenchimento():
+
+    def resultado(self):
+        Resultado.objects.all().delete()
+
+        for row in Inscricao.objects.all():
+            Resultado(**dict(
+                atleta_id=row.id,
+                absoluto=False,
+                pontos=0,
+                descricao=' '
+            )).save()
+
+        for row in Inscricao.objects.filter(absoluto=True):
+            Resultado(**dict(
+                atleta_id=row.id,
+                absoluto=True,
+                pontos=0,
+                descricao=' '
+            )).save()
+
 
 class SorteioService():
 
