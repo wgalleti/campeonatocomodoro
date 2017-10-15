@@ -10,8 +10,6 @@ from .models import Combinacao, CombinacaoAbsoluto
 
 
 def index(request):
-    a = ConcertaCagada()
-    a.processar(id=93)
     return render(request, 'home.html')
 
 def inscricao(request):
