@@ -68,7 +68,7 @@ class Atleta(models.Model):
     nome = models.CharField(max_length=100, null=True)
     sexo = models.CharField(max_length=1, choices=OPCAO)
     idade = models.IntegerField(null=True, blank=True)
-    peso = models.DecimalField(max_digits=15, decimal_places=2)
+    peso = models.DecimalField(max_digits=15, decimal_places=2, default=0)
     faixa = models.IntegerField(choices=FAIXA, default=1)
     academia = models.ForeignKey('core.Academia')
 
@@ -85,9 +85,7 @@ class Atleta(models.Model):
 
 
 class InscricaoManager(models.Manager):
-
     def total_pago(self):
-
         total = 0
         queryset = self.get_queryset().filter(Q(pago_inscricao=True) or Q(pago_absoluto=True))
 
@@ -95,6 +93,7 @@ class InscricaoManager(models.Manager):
             total += row.valor + row.valor_absoluto
 
         return total
+
 
 class Inscricao(models.Model):
     CATEGORIA_PESO = (

@@ -1,19 +1,27 @@
 from django.contrib import admin
 from .services import *
+from .exports import *
+from import_export.admin import ImportExportModelAdmin
 
-admin.site.register(Equipe)
+
+@admin.register(Equipe)
+class EquipeAdmin(ImportExportModelAdmin):
+    resource_class = EquipeResource
+    list_display = ('nome',)
 
 
 @admin.register(Academia)
-class AcademiaAdmin(admin.ModelAdmin):
+class AcademiaAdmin(ImportExportModelAdmin):
+    resource_class = AcademiaResource
     list_display = ('nome', 'cidade', 'estado', 'equipe')
     list_filter = ('cidade', 'equipe')
 
 
 @admin.register(Atleta)
-class CadastroAdmin(admin.ModelAdmin):
+class CadastroAdmin(ImportExportModelAdmin):
+    resource_class = AtletaResource
     list_display = ('nome', 'sexo', 'idade', 'faixa')
-    list_filter = ('sexo', 'faixa')
+    list_filter = ('sexo', 'faixa', 'academia')
     search_fields = ('nome',)
 
 
@@ -29,8 +37,8 @@ class InscricaoAdmin(admin.ModelAdmin):
         'valor_absoluto'
     )
     list_filter = (
-    'data', 'atleta__sexo', 'atleta__faixa', 'atleta__academia__nome', 'atleta__academia__equipe__nome', 'absoluto')
-    search_fields = ('nome',)
+        'data', 'atleta__sexo', 'atleta__faixa', 'atleta__academia__nome', 'categoria_idade', 'absoluto')
+    search_fields = ('atleta__nome',)
 
 
 class CombateInfoInLine(admin.TabularInline):

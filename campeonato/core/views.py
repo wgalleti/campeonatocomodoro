@@ -3,13 +3,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 
-from .services import SorteioService
+from .services import *
 from .models import Combinacao, CombinacaoAbsoluto
 
 # Create your views here.
 
 
 def index(request):
+    a = ConcertaCagada()
+    a.processar(id=93)
     return render(request, 'home.html')
 
 def inscricao(request):
