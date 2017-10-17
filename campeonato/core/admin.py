@@ -52,7 +52,6 @@ class CombateAdmin(admin.ModelAdmin):
 
     list_display = (
         'chave',
-        'data',
         'encerrada',
     )
 

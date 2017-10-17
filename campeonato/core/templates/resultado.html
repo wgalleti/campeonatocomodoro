@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="row">
+        <h3>Resultados - Academia</h3>
+
+        <div class="col-6">
+            <div class="row">
+                <table class="bordered highlight responsive-table">
+                    <thead>
+                        <tr>
+                            <th>Academia</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in academia %}
+                        <tr>
+                            <td>{{ row.academia.title }}</td>
+                            <td>{{ row.total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">
+        <h3>Resultados - Equipe</h3>
+
+        <div class="col-6">
+            <div class="row">
+                <table class="bordered highlight responsive-table">
+                    <thead>
+                        <tr>
+                            <th>Equipe</th>
+                            <th>Pontos</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in equipe %}
+                        <tr>
+                            <td>{{ row.equipe.title }}</td>
+                            <td>{{ row.total }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+{% endblock %}

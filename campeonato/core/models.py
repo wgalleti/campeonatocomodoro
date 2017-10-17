@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models import Q
+from django.db.models import Q, F, Sum
 
 
 class Equipe(models.Model):
@@ -210,9 +210,6 @@ class Combate(models.Model):
     )
 
     chave = models.ForeignKey('core.Chave')
-    data = models.DateTimeField()
-    tempo = models.TimeField()
-    etapa = models.IntegerField(choices=ETAPA, default=5)
     inscricao = models.ManyToManyField('core.Inscricao', through='core.CombateInfo')
     encerrada = models.BooleanField(default=False)
 
@@ -221,7 +218,7 @@ class Combate(models.Model):
         verbose_name_plural = 'combates'
 
     def __str__(self):
-        return '{}-{}'.format(str(self.chave), self.get_etapa_display())
+        return '{}'.format(str(self.chave))
 
 
 class CombateInfo(models.Model):
@@ -265,11 +262,34 @@ class CombateResultado(models.Model):
         return '{}-{}'.format(str(self.combate.chave), self.combate.get_etapa_display())
 
 
+class ResultadoManager(models.Manager):
+
+    def academia(self):
+        qr = self.get_queryset().all()
+
+        return qr\
+            .annotate(academia=F('atleta__atleta__academia__nome'))\
+            .values('academia')\
+            .annotate(
+            total=Sum('pontos')
+        ).order_by('-total')
+
+    def equipe(self):
+        qr = self.get_queryset().all()
+
+        return qr\
+            .annotate(equipe=F('atleta__atleta__academia__equipe__nome'))\
+            .values('equipe')\
+            .annotate(
+            total=Sum('pontos')
+        ).order_by('-total')
+
 class Resultado(models.Model):
+    objects = ResultadoManager()
     atleta = models.ForeignKey('core.Inscricao')
     absoluto = models.BooleanField(default=False)
     pontos = models.IntegerField(default=0)
-    descricao = models.CharField(max_length=100)
+    descricao = models.CharField(max_length=100, null=True, blank=True)
 
     class Meta:
         verbose_name_plural = 'resultados'

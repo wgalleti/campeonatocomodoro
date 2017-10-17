@@ -209,6 +209,7 @@ class SorteioService():
                 )] = [insc]
 
         for row in comb:
+            print(row)
             c = CombinacaoAbsoluto(chave=row, sexo=row[0], faixa=row[1], idade=row[2])
             c.save()
             c.inscricao.add(*comb[row])
