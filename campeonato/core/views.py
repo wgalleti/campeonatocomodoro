@@ -13,10 +13,14 @@ from .models import Combinacao, CombinacaoAbsoluto
 def index(request):
     return render(request, 'home.html')
 
-def inscricao(request):
-    c = Combinacao.objects.filter(idade__in=[5,6]).exclude(faixa__in=[16,17]).order_by('sexo', 'faixa', 'idade', 'peso')
+def absoluto(request):
     a = CombinacaoAbsoluto.objects.all().order_by('sexo', 'faixa', 'idade')
-    return render(request, 'inscricao.html', {'combinacoes': c, 'absoluto': a})
+    return render(request, 'absoluto.html', dict(absoluto=a))
+
+
+def inscricao(request):
+    c = Combinacao.objects.all().order_by('sexo', 'faixa', 'idade', 'peso')
+    return render(request, 'inscricao.html', dict(combinacoes= c))
 
 def resultado(request):
     ac = Resultado.objects.academia()[:5]
@@ -29,15 +33,6 @@ def combinacao(request):
 
     combinacao = SorteioService()
     combinacao.combinacao()
-
-    messages.success(request, 'Inscrições processadas com sucesso!')
-
-    return redirect('inscricao')
-
-@login_required(login_url='/admin')
-def combinacao_absoluto(request):
-
-    combinacao = SorteioService()
     combinacao.combinacao_absoluto()
 
     messages.success(request, 'Inscrições processadas com sucesso!')

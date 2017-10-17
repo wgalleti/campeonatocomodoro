@@ -2,7 +2,7 @@
 
 {% block content %}
     <div class="row-fluid">
-        <h3>Categorias</h3>
+    <h3>Absoluto</h3>
 
         <div class="col-md-12">
 
@@ -21,18 +21,14 @@
                         <tr>
                             <th>Sexo</th>
                             <th>Faixa</th>
-                            <th>Categoria</th>
-                            <th>Peso</th>
                             <th>Atletas</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {% for combinacao in combinacoes %}
+                        {% for combinacao in absoluto %}
                         <tr>
                             <td>{{ combinacao.get_sexo_display }}</td>
                             <td>{{ combinacao.get_faixa_display }}</td>
-                            <td>{{ combinacao.get_idade_display}}</td>
-                            <td>{{ combinacao.get_peso_display }}</td>
                                 <td>
                                     <ul>
                                     {% for inscricao in combinacao.inscricao.all %}

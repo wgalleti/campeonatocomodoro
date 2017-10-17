@@ -116,7 +116,6 @@ class ConcertaCagada():
         for row in tabela:
 
             if atleta.peso <= row['limite']:
-                print('Aew Caraleo')
                 return row['id']
 
     def processar(self, **kwargs):
@@ -127,24 +126,11 @@ class ConcertaCagada():
             f = f.filter(id=kwargs.get('id'))
 
         for row in f:
-
             if row.idade == 0 or row.peso == 0:
                 continue
 
             idade = self.categoria_idade(row.idade)
             peso = self.categoria_peso(row)
-
-            CATEGORIA_PESO = (
-                (1, 'Galo'),
-                (2, 'Pluma'),
-                (3, 'Pena'),
-                (4, 'Leve'),
-                (5, 'Médio'),
-                (6, 'Meio Pesado'),
-                (7, 'Pesado'),
-                (8, 'Super Pesado'),
-                (9, 'Pesadíssimo'),
-            )
 
             Inscricao(
                 data=datetime.now(),
@@ -157,27 +143,6 @@ class ConcertaCagada():
                 pago_inscricao=False,
                 pago_absoluto=False
             ).save()
-
-
-class AutoPreenchimento():
-    def resultado(self):
-        Resultado.objects.all().delete()
-
-        for row in Inscricao.objects.all():
-            Resultado(**dict(
-                atleta_id=row.id,
-                absoluto=False,
-                pontos=0,
-                descricao=' '
-            )).save()
-
-        for row in Inscricao.objects.filter(absoluto=True):
-            Resultado(**dict(
-                atleta_id=row.id,
-                absoluto=True,
-                pontos=0,
-                descricao=' '
-            )).save()
 
 
 class SorteioService():
@@ -209,7 +174,6 @@ class SorteioService():
                 )] = [insc]
 
         for row in comb:
-            print(row)
             c = CombinacaoAbsoluto(chave=row, sexo=row[0], faixa=row[1], idade=row[2])
             c.save()
             c.inscricao.add(*comb[row])
